@@ -5,10 +5,11 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.Window;
 
-import com.loudshout.android.R;
+import com.example.apurv.awstestproject.R;
+
 
 /**
- * Created by noor on 04/05/15.
+ * Created by Apurv on 14/07/15.
  */
 public class DialogHandler {
 

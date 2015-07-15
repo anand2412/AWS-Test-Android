@@ -4,7 +4,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 
 /**
- * Created by noor on 04/05/15.
+ * Created by Apurv on 14/07/15.
  */
 public class DialogParams {
     private String message = "";

@@ -3,12 +3,15 @@ package com.example.apurv.awstestproject.awsclient.loader;
 import android.app.LoaderManager;
 import android.content.Loader;
 import android.os.Bundle;
+import android.util.Log;
 
-import com.loudshout.android.awsclient.AWSConstants;
-import com.loudshout.android.awsclient.listeners.OnLoaderFinishedListener;
-import com.loudshout.android.awsclient.model.AWSModel;
-import com.loudshout.android.awsclient.model.AWSRequest;
-import com.loudshout.android.utils.Logger;
+import com.example.apurv.awstestproject.awsclient.AWSConstants;
+import com.example.apurv.awstestproject.awsclient.listeners.OnLoaderFinishedListener;
+import com.example.apurv.awstestproject.awsclient.model.AWSModel;
+import com.example.apurv.awstestproject.awsclient.model.AWSRequest;
+
+import java.util.logging.Logger;
+
 
 /**
  * <p/>
@@ -31,7 +34,7 @@ public class AWSLoaderCallBacks<M> implements LoaderManager.LoaderCallbacks<AWSM
     @Override
     public Loader<AWSModel> onCreateLoader(int id, Bundle bundle) {
         AWSRequest awsRequest = bundle.getParcelable(AWSConstants.AWS_REQUEST);
-        Logger.i("*****onCreateLoader() LoaderId:" + id + " Bundle:" + bundle.toString() + " requestParamBundle:" + awsRequest.getParamBundle());
+        Log.i(".....","*****onCreateLoader() LoaderId:" + id + " Bundle:" + bundle.toString() + " requestParamBundle:" + awsRequest.getParamBundle());
 
         AWSTaskLoader amazonServiceTaskLoader = new AWSTaskLoader(awsRequest);
         return amazonServiceTaskLoader;
@@ -39,14 +42,14 @@ public class AWSLoaderCallBacks<M> implements LoaderManager.LoaderCallbacks<AWSM
 
     @Override
     public void onLoadFinished(Loader<AWSModel> loader, AWSModel data) {
-        Logger.i("*****onLoadFinished() LoaderId:" + loader.getId());
+        Log.i("","*****onLoadFinished() LoaderId:" + loader.getId());
         mOnLoaderFinishedListener.onLoaderFinished(loader, data);
 
     }
 
     @Override
     public void onLoaderReset(Loader<AWSModel> loader) {
-        Logger.i( "*****onLoaderReset() LoaderId:" + loader.getId());
+        Log.i("", "*****onLoaderReset() LoaderId:" + loader.getId());
 
     }
 }

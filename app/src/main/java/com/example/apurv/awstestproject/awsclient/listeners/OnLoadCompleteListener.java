@@ -1,10 +1,11 @@
 package com.example.apurv.awstestproject.awsclient.listeners;
 
 
-import com.loudshout.android.awsclient.model.AWSModel;
+
+import com.example.apurv.awstestproject.awsclient.model.AWSModel;
 
 /**
- * Created by noor on 29/04/15.
+ * Created by Apurv on 14/07/15.
  */
 public interface OnLoadCompleteListener {
 

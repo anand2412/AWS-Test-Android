@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.loudshout.android.awsclient.ValueObject;
-import com.loudshout.android.parser.Parser;
+
+import com.example.apurv.awstestproject.awsclient.ValueObject;
 
 import org.json.JSONObject;
 
@@ -38,7 +38,7 @@ public class AWSRequest implements Parcelable {
     private boolean showProgressDialog = true;
     private ValueObject valueObject;
     private ValueObject secondValueObject;
-    private Parser<ValueObject> parser;
+//    private Parser<ValueObject> parser;
     private JSONObject jsonObject;
     private Activity activity;
 
@@ -114,13 +114,13 @@ public class AWSRequest implements Parcelable {
         this.jsonObject = jsonObject;
     }
 
-    public Parser<ValueObject> getParser() {
-        return parser;
-    }
+//    public Parser<ValueObject> getParser() {
+//        return parser;
+//    }
 
-    public void setParser(Parser<ValueObject> parser) {
-        this.parser = parser;
-    }
+//    public void setParser(Parser<ValueObject> parser) {
+//        this.parser = parser;
+//    }
 
     public Activity getActivity() {
         return activity;

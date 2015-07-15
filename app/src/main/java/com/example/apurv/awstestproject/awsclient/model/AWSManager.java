@@ -3,6 +3,7 @@ package com.example.apurv.awstestproject.awsclient.model;
 import android.content.Context;
 import android.util.Log;
 
+
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.mobileconnectors.cognito.CognitoSyncManager;
@@ -10,9 +11,7 @@ import com.amazonaws.mobileconnectors.cognito.Dataset;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
-import com.loudshout.android.helper.DeveloperAuthenticationProvider;
-import com.loudshout.android.utils.AppConstants;
-import com.loudshout.android.utils.PreferencesUtility;
+import com.example.apurv.awstestproject.utils.AppConstants;
 
 import java.security.MessageDigest;
 import java.sql.Timestamp;
@@ -38,14 +37,14 @@ public class AWSManager {
     private Context mContext;
     private CognitoCachingCredentialsProvider mCredentials;
     private CognitoSyncManager mSyncClient;
-    private DeveloperAuthenticationProvider developerProvider;
+
 
     private AWSManager() {
     }
 
-    private AWSManager(Context context, DeveloperAuthenticationProvider developerAuthenticationProvider) {
+    private AWSManager(Context context) {
         this.mContext = context.getApplicationContext();
-        developerProvider=developerAuthenticationProvider;
+
         initClients();
         syncClient();
         if (ddb == null) {
@@ -54,9 +53,9 @@ public class AWSManager {
 
     }
 
-    public static AWSManager init(Context context, DeveloperAuthenticationProvider developerAuthenticationProvider) {
+    public static AWSManager init(Context context) {
         if (sAmazonClientManagerInstance == null) {
-            sAmazonClientManagerInstance = new AWSManager(context,developerAuthenticationProvider);
+            sAmazonClientManagerInstance = new AWSManager(context);
         }
         return sAmazonClientManagerInstance;
     }
@@ -85,7 +84,7 @@ public class AWSManager {
         try {
             mCredentials = new CognitoCachingCredentialsProvider(
                     mContext,
-                    developerProvider,
+                    AppConstants.IDENTITY_POOL_ID,
                     Regions.EU_WEST_1);
         }catch (AmazonServiceException e){
             e.printStackTrace();
@@ -147,135 +146,10 @@ public class AWSManager {
         return value;
     }
 
-    public String getPostId() {
-        String identityId = getCredential().getIdentityId();
-        String epochTime = String.valueOf(getCurrentUnixTimeStamp());
-        String hMacInput = identityId + epochTime;
-        return getHMac(hMacInput);
-    }
-
     public String getComposerId() {
         String identityId = getCredential().getIdentityId();
         return identityId;
     }
 
-    public int getUpVote() {
-        //todo: change it from shared pref.
-        return 0;
-    }
 
-    public int getDownVote() {
-        //todo: change it from shared pref.
-        return 0;
-    }
-
-    public int getUserPoint(Dataset dataset, String column) {
-       try {
-           String value = dataset.get(column);
-           return Integer.parseInt(value);
-       }catch (Exception e){
-           return 0;
-       }
-    }
-
-    public int getNumberOfComments() {
-        //todo: change it from shared pref.
-        return 0;
-    }
-
-    public int getDeleteStatus() {
-        //todo: change it from shared pref.
-        //note: cognito get true as 1 and false as 0, so we have to send it as true and false in string.
-        return 0;
-    }
-
-    public String getPostTime() {
-//        Get the current time form system in format "2 June 2015 13:44 +530 IST"
-//        DateFormat simpleDateFormat = new SimpleDateFormat("dd MMM yyyy HH:mm z");
-        DateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));//IST//Asia/Kolkata// UTC
-        return simpleDateFormat.format(new Date()).toString();
-    }
-
-    public double getLat() {
-        return PreferencesUtility.getSharedPrefDoubleData(mContext, AppConstants.PREF_LATITUDE);
-    }
-
-    public double getLong() {
-        return PreferencesUtility.getSharedPrefDoubleData(mContext, AppConstants.PREF_LONGITUDE);
-    }
-
-    public int getFlags() {
-        //todo: change it from shared pref.
-        return 0;
-    }
-
-    public int getAvatar() {
-        Random rand = new Random();
-        int randomNum = rand.nextInt(181);
-        return randomNum+1;
-    }
-
-    private String getCurrentAvatarColorCode() {
-        //todo: change it from shared pref.
-        return "ff0000";
-    }
-
-    private int getCurrentAvatarNumber() {
-        //todo: change it from shared pref.
-        return 0;
-    }
-
-    public int getVisible() {
-        //todo: change it from shared pref.
-        return 0;
-    }
-
-
-    public long getCurrentUnixTimeStamp() {
-        Date date = new Date();
-        long t = date.getTime();
-        String time = new Timestamp(t).getTime() + "";
-        long unixTime = System.currentTimeMillis() / 1000L;
-        return unixTime;
-    }
-
-    public String getHMac(String data) {
-        try {
-            byte[] bytesOfMessage = data.getBytes("UTF-8");
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] rawMD5 = md.digest(bytesOfMessage);
-            return asHex(rawMD5);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public String asHex(byte[] buffer) {
-        Formatter formatter = new Formatter();
-        for (byte b : buffer) {
-            formatter.format("%02x", b);
-        }
-        return formatter.toString();
-    }
-
-    public String bytesToHex(byte[] bytes) {
-        final char[] hexArray = "0123456789ABCDEF".toCharArray();
-        char[] hexChars = new char[bytes.length * 2];
-        for (int j = 0; j < bytes.length; j++) {
-            int v = bytes[j] & 0xFF;
-            hexChars[j * 2] = hexArray[v >>> 4];
-            hexChars[j * 2 + 1] = hexArray[v & 0x0F];
-        }
-        return new String(hexChars);
-    }
-
-    public int getSharesNo() {
-        return 0;
-    }
-
-    public int getFavourites() {
-        return 0;
-    }
 }

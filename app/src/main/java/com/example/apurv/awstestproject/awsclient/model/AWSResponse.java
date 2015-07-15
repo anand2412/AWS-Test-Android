@@ -1,7 +1,9 @@
 package com.example.apurv.awstestproject.awsclient.model;
 
 
-import com.loudshout.android.awsclient.ValueObject;
+
+
+import com.example.apurv.awstestproject.awsclient.ValueObject;
 
 import java.util.ArrayList;
 

@@ -3,10 +3,11 @@ package com.example.apurv.awstestproject.awsclient.listeners;
 
 import android.content.Loader;
 
-import com.loudshout.android.awsclient.model.AWSModel;
+
+import com.example.apurv.awstestproject.awsclient.model.AWSModel;
 
 /**
- * Created by noor on 04/05/15.
+ * Created by Apurv on 14/07/15.
  */
 public interface OnLoaderFinishedListener {
 

@@ -7,14 +7,14 @@ import android.content.Context;
 import android.content.Loader;
 import android.os.Bundle;
 
-import com.loudshout.android.awsclient.AWSConstants;
-import com.loudshout.android.awsclient.dialogs.DialogHandler;
-import com.loudshout.android.awsclient.listeners.OnLoadCompleteListener;
-import com.loudshout.android.awsclient.listeners.OnLoaderFinishedListener;
-import com.loudshout.android.awsclient.model.AWSModel;
-import com.loudshout.android.awsclient.model.AWSRequest;
-import com.loudshout.android.awsclient.model.AWSResponse;
-import com.loudshout.android.utils.AppUtility;
+import com.example.apurv.awstestproject.awsclient.AWSConstants;
+import com.example.apurv.awstestproject.awsclient.dialogs.DialogHandler;
+import com.example.apurv.awstestproject.awsclient.listeners.OnLoadCompleteListener;
+import com.example.apurv.awstestproject.awsclient.listeners.OnLoaderFinishedListener;
+import com.example.apurv.awstestproject.awsclient.model.AWSModel;
+import com.example.apurv.awstestproject.awsclient.model.AWSRequest;
+import com.example.apurv.awstestproject.awsclient.model.AWSResponse;
+
 
 /**
  * Created by Tushar on 11-Jul-15.
@@ -90,37 +90,37 @@ public class SplashLoader {
     /**
      * Start loading data from server. Data will be received in registered {@link OnLoadCompleteListener} listener.
      */
-    public void loadData() {
-        if(!mFragmentActivity.isFinishing()) {
-            if (AppUtility.isConnectingToInternet(mFragmentActivity)) {
-                if (mAWSRequest.isShowProgressDialog()) {
-                    if (mDialogHandler == null) {
-                        mDialogHandler = new DialogHandler(mFragmentActivity);
-                    }
-
-                    mDialogHandler.showDefaultProgressDialog();
-                }
-                Bundle bundle = new Bundle();
-                bundle.putParcelable(AWSConstants.AWS_REQUEST, mAWSRequest);
-
-                LoaderManager.LoaderCallbacks<AWSModel> myLoaderCallbacks = new AWSLoaderCallBacks<AWSModel>(new OnLoaderFinishedListener() {
-                    @Override
-                    public void onLoaderFinished(Loader loader, AWSModel data) {
-                        if (mOnLoadCompleteListener != null) {
-                            ((AWSResponse) data).setLoaderId(loader.getId());
-                            mOnLoadCompleteListener.onLoadComplete(data);
-                        }
-                        //loader.reset();
-                        mLoaderManager.destroyLoader(loader.getId());
-                        if (mDialogHandler != null) {
-                            mDialogHandler.dismissProgressDialog();
-                        }
-
-                    }
-                });
-
-                mLoaderManager.initLoader(++loaderId, bundle, myLoaderCallbacks).forceLoad();
-            }
-        }
-    }
+//    public void loadData() {
+//        if(!mFragmentActivity.isFinishing()) {
+//            if (AppUtility.isConnectingToInternet(mFragmentActivity)) {
+//                if (mAWSRequest.isShowProgressDialog()) {
+//                    if (mDialogHandler == null) {
+//                        mDialogHandler = new DialogHandler(mFragmentActivity);
+//                    }
+//
+//                    mDialogHandler.showDefaultProgressDialog();
+//                }
+//                Bundle bundle = new Bundle();
+//                bundle.putParcelable(AWSConstants.AWS_REQUEST, mAWSRequest);
+//
+//                LoaderManager.LoaderCallbacks<AWSModel> myLoaderCallbacks = new AWSLoaderCallBacks<AWSModel>(new OnLoaderFinishedListener() {
+//                    @Override
+//                    public void onLoaderFinished(Loader loader, AWSModel data) {
+//                        if (mOnLoadCompleteListener != null) {
+//                            ((AWSResponse) data).setLoaderId(loader.getId());
+//                            mOnLoadCompleteListener.onLoadComplete(data);
+//                        }
+//                        //loader.reset();
+//                        mLoaderManager.destroyLoader(loader.getId());
+//                        if (mDialogHandler != null) {
+//                            mDialogHandler.dismissProgressDialog();
+//                        }
+//
+//                    }
+//                });
+//
+//                mLoaderManager.initLoader(++loaderId, bundle, myLoaderCallbacks).forceLoad();
+//            }
+//        }
+//    }
 }
