@@ -77,7 +77,7 @@ public class AWSManager {
     private void initddb() {
 
         ddb = new AmazonDynamoDBClient(mCredentials);
-        ddb.setRegion(Region.getRegion(Regions.AP_SOUTHEAST_1));
+        ddb.setRegion(Region.getRegion(Regions.US_EAST_1));
     }
 
     public void initClients(){
@@ -85,7 +85,7 @@ public class AWSManager {
             mCredentials = new CognitoCachingCredentialsProvider(
                     mContext,
                     AppConstants.IDENTITY_POOL_ID,
-                    Regions.EU_WEST_1);
+                    Regions.US_EAST_1);
         }catch (AmazonServiceException e){
             e.printStackTrace();
         }
@@ -98,7 +98,7 @@ public class AWSManager {
         try {
             mSyncClient = new CognitoSyncManager(
                     mContext,
-                    Regions.EU_WEST_1, // Region
+                    Regions.US_EAST_1, // Region
                     mCredentials);
         }catch (AmazonServiceException e){
             e.printStackTrace();

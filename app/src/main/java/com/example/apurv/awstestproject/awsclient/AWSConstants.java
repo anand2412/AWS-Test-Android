@@ -40,4 +40,5 @@ public interface AWSConstants {
     String FAVORITE_ACTION="favourite-post";
 
     String AWS_REQUEST_DYNAMO_SAVE = "table_save";
+    String AWS_REQUEST_DYNAMO_UPDATE = "update";
 }

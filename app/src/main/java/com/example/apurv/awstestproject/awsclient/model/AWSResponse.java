@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * <p/>
  */
 
-public class AWSResponse implements AWSModel {
+public class AWSResponse extends AWSModel {
     private boolean isError;
     private String responseJSONString = "";
     private String errorMsg = "";

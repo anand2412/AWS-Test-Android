@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.example.apurv.awstestproject.awsclient.AWSConstants;
 import com.example.apurv.awstestproject.awsclient.AWSDBConstant;
+import com.example.apurv.awstestproject.awsclient.AWSUtils;
 import com.example.apurv.awstestproject.awsclient.ValueObject;
 import com.example.apurv.awstestproject.awsclient.model.AWSModel;
 import com.example.apurv.awstestproject.awsclient.model.AWSRequest;
@@ -47,6 +48,16 @@ public class AWSTaskLoader extends AsyncTaskLoader<AWSModel> {
     public AWSModel loadInBackground() {
 
         AWSModel awsModel = null;
+        if (mAWSRequest.getRequestType().equals(AWSConstants.AWS_REQUEST_DYNAMO_GET_QUERY_DATA)) {
+            awsModel = AWSUtils.getData(mAWSRequest);
+
+        }else if (mAWSRequest.getRequestType().equals(AWSConstants.AWS_REQUEST_DYNAMO_POST)) {
+            awsModel = AWSUtils.postData(mAWSRequest);
+        }else if(mAWSRequest.getRequestType().equals(AWSConstants.AWS_REQUEST_DYNAMO_UPDATE)){
+            awsModel=AWSUtils.updateItem(mAWSRequest);
+        }
+
+
 //        if(mAWSRequest.getRequestType().equals(AWSDBConstant.AWS_REQUEST_DYNAMO_FAVOURITE_POST)){
 //            awsModel=AWSUtils.updateFavourite(mAWSRequest);
 //        }
@@ -55,10 +66,7 @@ public class AWSTaskLoader extends AsyncTaskLoader<AWSModel> {
 //            awsModel = AWSUtils.getData(mAWSRequest);
 //
 //        }
-//        if (mAWSRequest.getRequestType().equals(AWSConstants.AWS_REQUEST_DYNAMO_GET_QUERY_DATA)) {
-//            awsModel = AWSUtils.getQueriedData(mAWSRequest);
 //
-//        }
 //        else if (mAWSRequest.getRequestType().equals(AWSConstants.AWS_REQUEST_DYNAMO_POST)) {
 //            awsModel = AWSUtils.postData(mAWSRequest);
 //        }else if(mAWSRequest.getRequestType().equals(AWSConstants.MY_POST_DELETE)){

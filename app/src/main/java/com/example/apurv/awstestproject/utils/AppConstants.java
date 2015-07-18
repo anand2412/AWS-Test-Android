@@ -46,7 +46,7 @@ public interface AppConstants {
     //credentials
 
 
-    String IDENTITY_POOL_ID = "eu-west-1:b6a5607d-3c9a-4ce6-af94-ed20c6226d12";
+    String IDENTITY_POOL_ID = "us-east-1:fbac9836-3ec0-46c4-853e-e0303593f0ec";
 
     String DEVELOPER_PROVIDER_NAME="login.loudshout.com";
 

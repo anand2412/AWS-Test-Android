@@ -13,8 +13,7 @@ import com.example.apurv.awstestproject.awsclient.dialogs.DialogHandler;
 import com.example.apurv.awstestproject.awsclient.listeners.OnLoadCompleteListener;
 import com.example.apurv.awstestproject.awsclient.listeners.OnLoaderFinishedListener;
 import com.example.apurv.awstestproject.awsclient.model.*;
-
-
+import com.example.apurv.awstestproject.utils.AppUtility;
 
 
 /**
@@ -28,14 +27,14 @@ public class LoaderHandler {
     private static Context sContext;
     private static boolean loggerEnabled = false;
     private Fragment mFragment;
-    private Activity mFragmentActivity;
+    private Activity mActivity;
     private AWSRequest mAWSRequest;
     private OnLoadCompleteListener mOnLoadCompleteListener = null;
     private LoaderManager mLoaderManager;
     private DialogHandler mDialogHandler;
 
     public LoaderHandler(Activity fragmentActivity, AWSRequest awsRequest, LoaderManager loaderManager) {
-        this.mFragmentActivity = fragmentActivity;
+        this.mActivity = fragmentActivity;
         this.mAWSRequest = awsRequest;
         this.mLoaderManager = loaderManager;
 
@@ -91,41 +90,41 @@ public class LoaderHandler {
     /**
      * Start loading data from server. Data will be received in registered {@link OnLoadCompleteListener} listener.
      */
-//    public void loadData() {
-//        if(!mFragmentActivity.isFinishing()) {
-//            if (AppUtility.isConnectingToInternet(mFragmentActivity)) {
-//                if (mAWSRequest.isShowProgressDialog()) {
-//                    if (mDialogHandler == null) {
-//                        mDialogHandler = new DialogHandler(mFragmentActivity);
-//                    }
-//
-//                    mDialogHandler.showDefaultProgressDialog();
-//                }
-//                Bundle bundle = new Bundle();
-//                bundle.putParcelable(AWSConstants.AWS_REQUEST, mAWSRequest);
-//
-//                LoaderManager.LoaderCallbacks<AWSModel> myLoaderCallbacks = new AWSLoaderCallBacks<AWSModel>(new OnLoaderFinishedListener() {
-//                    @Override
-//                    public void onLoaderFinished(Loader loader, AWSModel data) {
-//                        if (mOnLoadCompleteListener != null) {
-//                            ((AWSResponse) data).setLoaderId(loader.getId());
-//                            mOnLoadCompleteListener.onLoadComplete(data);
-//                        }
-//                        //loader.reset();
-//                        mLoaderManager.destroyLoader(loader.getId());
-//                        if (mDialogHandler != null) {
-//                            mDialogHandler.dismissProgressDialog();
-//                        }
-//
-//                    }
-//                });
-//
-//                mLoaderManager.initLoader(++loaderId, bundle, myLoaderCallbacks).forceLoad();
-//            } else {
-//                AppUtility.showInternetSettingDialog(mFragmentActivity);
-//            }
-//        }
-//    }
+    public void loadData() {
+        if(!mActivity.isFinishing()) {
+            if (AppUtility.isConnectingToInternet(mActivity)) {
+                if (mAWSRequest.isShowProgressDialog()) {
+                    if (mDialogHandler == null) {
+                        mDialogHandler = new DialogHandler(mActivity);
+                    }
+
+                    mDialogHandler.showDefaultProgressDialog();
+                }
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(AWSConstants.AWS_REQUEST, mAWSRequest);
+
+                LoaderManager.LoaderCallbacks<AWSModel> myLoaderCallbacks = new AWSLoaderCallBacks<AWSModel>(new OnLoaderFinishedListener() {
+                    @Override
+                    public void onLoaderFinished(Loader loader, AWSModel data) {
+                        if (mOnLoadCompleteListener != null) {
+                            ((AWSResponse) data).setLoaderId(loader.getId());
+                            mOnLoadCompleteListener.onLoadComplete(data);
+                        }
+                        //loader.reset();
+                        mLoaderManager.destroyLoader(loader.getId());
+                        if (mDialogHandler != null) {
+                            mDialogHandler.dismissProgressDialog();
+                        }
+
+                    }
+                });
+
+                mLoaderManager.initLoader(++loaderId, bundle, myLoaderCallbacks).forceLoad();
+            } else {
+                AppUtility.showInternetSettingDialog(mActivity);
+            }
+        }
+    }
 
 
 }

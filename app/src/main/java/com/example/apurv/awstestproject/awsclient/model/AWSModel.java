@@ -7,7 +7,7 @@ package com.example.apurv.awstestproject.awsclient.model;
  * Email id: anand.rai@tothenew.com<br/>
  * <p/>
  */
-public interface AWSModel {
+public class AWSModel {
 
 
 
